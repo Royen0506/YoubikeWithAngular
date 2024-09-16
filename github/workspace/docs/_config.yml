@@ -2,7 +2,7 @@
 title: Your Site Title
 description: A brief description of your site.
 url: https://github.com/Royen0506/YoubikeWithAngular
-baseurl: /YoubikeWithAngular # 如果您的網站不是在根目錄，請設置此項
+baseurl: /YoubikeWithAngular
 
 # Build settings
 markdown: kramdown
