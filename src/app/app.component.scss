@@ -1,0 +1,30 @@
+.header-img {
+  max-height: 20dvh;
+  object-fit: cover;
+}
+
+footer {
+  height: 15dvh;
+}
+
+.bg-img {
+  background-image: url("https://img.freepik.com/premium-photo/old-vintage-white-paper-texture-background_293060-19687.jpg?w=1380");
+}
+
+.container {
+  max-width: 1200px; /* 設定最大寬度 */
+  margin: 0 auto; /* 使容器水平居中 */
+  box-sizing: border-box; /* 包含內邊距和邊框在內的總寬度 */
+}
+
+@media (max-width: 1200px) {
+  .container {
+    padding: 15px; /* 在較小的屏幕上減少內邊距 */
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 10px; /* 在手機屏幕上進一步減少內邊距 */
+  }
+}

@@ -1,0 +1,177 @@
+<div class="container">
+  <div class="gird mt-3">
+    <div class="col-12 mx-auto mb-3">
+      <div
+        class="d-flex md:flex bg-yellow-500 py-3 text-white border-round-top-3xl border-3 border-yellow-500"
+      >
+        <div class="text-xl md:text-2xl font-bold align-self-center">
+          －站點分佈地圖－
+        </div>
+      </div>
+
+      <div
+        class="py-3 ml-auto flex justify-content-center md:justify-content-end bg-white pl-2 md:pr-2"
+        [formGroup]="formGroup"
+      >
+        <div class="hidden font-bold md:block align-self-center">
+          站點租借現況：
+        </div>
+        <div class="block font-bold md:hidden align-self-center">搜尋：</div>
+        <div class="mt-2 md:mt-0">
+          <p-autoComplete
+            id="filterMap"
+            [suggestions]="mapFilterSuggestions"
+            formControlName="mapFilter"
+            field="filterMap"
+            placeholder="請輸入站名或地址"
+            (completeMethod)="doTableSearch($event)"
+            (onSelect)="doFocusStationOnMap($event)"
+            field="label"
+          />
+        </div>
+      </div>
+      <div class="flex justify-content-center" *ngIf="detailData.length == 0">
+        <p-progressSpinner
+          ariaLabel="loading"
+          styleClass="w-10rem h-10rem"
+          strokeWidth="5"
+        />
+      </div>
+
+      <div *ngIf="detailData.length > 0"><div id="map"></div></div>
+
+      <div
+        class="bg-yellow-500 border-round-bottom-3xl border-3 border-yellow-500"
+      >
+        <div class="grid">
+          <div
+            class="col-12 md:col-4 flex md:justify-content-center ml-2 md:ml-0 md:mt-2"
+          >
+            <img
+              class=""
+              src="https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png"
+              alt=""
+            />
+            <small
+              class="align-self-center mb-0 ml-1 text-sm text-white font-bold"
+              >接受歸還及租借</small
+            >
+          </div>
+          <div
+            class="col-12 md:col-4 flex md:justify-content-center ml-2 md:ml-0 md:mt-2"
+          >
+            <img
+              src="https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-black.png"
+              alt=""
+            />
+            <small
+              class="align-self-center mb-0 ml-1 text-sm text-white font-bold"
+              >無車位可歸還</small
+            >
+          </div>
+          <div
+            class="col-12 md:col-4 flex md:justify-content-center ml-2 md:ml-0 md:mt-2"
+          >
+            <img
+              src="https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-grey.png"
+              alt=""
+            />
+            <div
+              class="align-self-center mb-0 ml-1 text-sm text-white font-bold"
+            >
+              無車輛可租借
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 mx-auto">
+      <p-table
+        scrollHeight="50dvh"
+        [paginator]="true"
+        [value]="detailData"
+        [tableStyle]="{ 'min-width': '50rem' }"
+        [rows]="5"
+        [rowsPerPageOptions]="[5, 10, 20]"
+        currentPageReportTemplate="顯示 {totalRecords} 筆資料中的 第 {first} 到 {last} 筆  "
+        [showCurrentPageReport]="true"
+        styleClass="p-datatable-gridlines p-datatable-sm"
+        columnResizeMode="expand"
+        [resizableColumns]="true"
+      >
+        <ng-template pTemplate="caption">
+          <div class="flex align-items-center">
+            <div class="d-flex">
+              <div class="hidden md:block md:text-2xl">站點租借現況</div>
+              <div class="block md:hidden md:text-2xl">搜尋：</div>
+              <small
+                *ngIf="detailData.length > 0"
+                class="hidden lg:block text-sm opacity-70"
+                >資料更新時間：{{ detailData[0].updateTime }}</small
+              >
+            </div>
+            <div class="md:ml-auto flex" [formGroup]="formGroup">
+              <label class="hidden lg:block align-self-center" for=""
+                >關鍵字搜尋：</label
+              >
+              <input
+                type="text"
+                placeholder="請輸入站名或地址"
+                pInputText
+                formControlName="filterStation"
+              />
+            </div>
+          </div>
+        </ng-template>
+
+        <ng-template pTemplate="header">
+          <tr>
+            <th
+              pResizableColumn
+              [pSortableColumn]="
+                header.field !== 'navigation' ? header.field : ''
+              "
+              scope=""
+              *ngFor="let header of tableColumns"
+            >
+              {{ header.header }}
+              <p-sortIcon
+                *ngIf="header.field !== 'navigation'"
+                [field]="header.field"
+              />
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData>
+          <tr>
+            <td *ngFor="let header of tableColumns" [ngSwitch]="header.field">
+              <ng-container *ngSwitchCase="'ar'">
+                臺北市{{ rowData.sarea }}{{ rowData[header.field] }}
+              </ng-container>
+              <ng-container *ngSwitchCase="'navigation'">
+                <p-button
+                  icon="pi pi-search"
+                  severity="success"
+                  label="導航到站點"
+                  size="small"
+                  iconPos="right"
+                  (click)="doNavigationToStation(rowData)"
+                  onkeydown=""
+                />
+              </ng-container>
+              <ng-container *ngSwitchDefault>
+                {{ rowData[header.field] }}
+              </ng-container>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td [colSpan]="tableColumns.length">無符合條件的資料</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>
