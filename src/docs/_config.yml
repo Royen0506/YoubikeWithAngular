@@ -1,0 +1,25 @@
+# Site settings
+title: Your Site Title
+description: A brief description of your site.
+url: https://github.com/Royen0506/YoubikeWithAngular
+baseurl: /YoubikeWithAngular # 如果您的網站不是在根目錄，請設置此項
+
+# Build settings
+markdown: kramdown
+theme: jekyll-theme-primer
+
+# Plugins
+plugins:
+  - jekyll-github-metadata
+  - jekyll-seo-tag
+  - jekyll-paginate
+
+# Pagination settings
+paginate: 5
+paginate_path: "/page:num/"
+
+# Other settings
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
