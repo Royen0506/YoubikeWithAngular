@@ -10,15 +10,16 @@
       </div>
 
       <div
-        class="py-3 ml-auto flex justify-content-center md:justify-content-end bg-white pl-2 md:pr-2"
+        class="py-2 md:py-3 ml-auto flex justify-content-center md:justify-content-end bg-white pl-2 md:pr-2"
         [formGroup]="formGroup"
       >
         <div class="hidden font-bold md:block align-self-center">
           站點租借現況：
         </div>
         <div class="block font-bold md:hidden align-self-center">搜尋：</div>
-        <div class="mt-2 md:mt-0">
+        <div>
           <p-autoComplete
+            class="mt-2 md:mt-0 align-content-center"
             id="filterMap"
             [suggestions]="mapFilterSuggestions"
             formControlName="mapFilter"
@@ -41,7 +42,7 @@
       <div *ngIf="detailData.length > 0"><div id="map"></div></div>
 
       <div
-        class="bg-yellow-500 border-round-bottom-3xl border-3 border-yellow-500 py-3"
+        class="bg-yellow-500 border-round-bottom-3xl border-3 border-yellow-500 py-2 md:py-1"
       >
         <div class="grid">
           <div
@@ -101,17 +102,23 @@
         [resizableColumns]="true"
       >
         <ng-template pTemplate="caption">
-          <div class="flex align-items-center">
+          <div class="flex">
             <div class="d-flex">
               <div class="hidden md:block md:text-2xl">站點租借現況</div>
-              <div class="block md:hidden md:text-2xl">搜尋：</div>
               <small
                 *ngIf="detailData.length > 0"
                 class="hidden lg:block text-sm opacity-70"
                 >資料更新時間：{{ detailData[0].updateTime }}</small
               >
             </div>
-            <div class="md:ml-auto flex" [formGroup]="formGroup">
+            <div
+              class="flex mx-auto md:ml-auto md:mr-0"
+              [formGroup]="formGroup"
+            >
+              <div class="block md:hidden md:text-2xl flex align-items-center">
+                搜尋：
+              </div>
+
               <label class="hidden lg:block align-self-center" for=""
                 >關鍵字搜尋：</label
               >
