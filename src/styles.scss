@@ -1,3 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+@media (max-width: 1200px) {
+  .container {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 10px; /* 在手機屏幕上進一步減少內邊距 */
+  }
+}

@@ -2,28 +2,6 @@
   height: 50dvh;
 }
 
-.icon-img {
-  object-fit: cover;
-}
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  box-sizing: border-box;
-}
-
-@media (max-width: 1200px) {
-  .container {
-    padding: 15px;
-  }
-}
-
-@media (max-width: 768px) {
-  .container {
-    padding: 10px; /* 在手機屏幕上進一步減少內邊距 */
-  }
-}
-
 @keyframes ldio-x2uulkbinbj {
   0% {
     transform: translate(12px, 80px) scale(0);
